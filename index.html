@@ -13,26 +13,27 @@
   <script type='text/babel'>
     const root = document.querySelector('#root');
 
-
     class Main extends React.Component {
       constructor () {
         super()
         this.state = {
-          people: []
+          people: [],
+          hash: ''
         }
       }
 
-        async componentDidMount () {
-          try {
-          const response = await fetch('https://swapi.co/api/people/?format=json');
-          const swData = await response.json();
-          const people = swData.results
-          this.setState({ people })
-          }
-          catch (err) {
-            console.log('There is an error that shows: ', err)
-          }
+      async componentDidMount () {
+        try {
+        const response = await fetch('https://swapi.co/api/people/?format=json');
+        const swData = await response.json();
+        const people = swData.results
+        this.setState({ people })
         }
+        catch (err) {
+          console.log('There is an error that shows: ', err)
+        }
+      }
+
 
       render() {
         console.log(this.state)
@@ -43,8 +44,10 @@
               <ul>
                 {this.state.people.map((person) => {
                   const hashName = '#' + this.state.people.indexOf(person)
-                  return <div key={person.name}>
-                    <a href={hashName}>{person.name}</a>
+                  return <div key={person.name} onClick={()=>{
+                    this.setState({ hash: window.location.hash.substring(1) })
+                  }}>
+                    <a href={hashName} >{person.name}</a>
                   </div>}
                 )}
               </ul>
@@ -57,7 +60,4 @@
     ReactDOM.render(<Main />, root)
   </script>
 </body>
-
 </html>
-<!-- //browser extenstions jsonview
-  react developer tools-->
