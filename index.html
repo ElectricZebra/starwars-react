@@ -18,7 +18,8 @@
       constructor () {
         super()
         this.state = {
-          people: []
+          people: [],
+          hash: ''
         }
       }
 
@@ -41,10 +42,11 @@
             <h1>Star Wars People with React!</h1>
             <div id='peopleList'>
               <ul>
-                {this.state.people.map((person) =>
-                  <div key={person.name}>
-                    <li>{person.name}</li>
-                  </div>
+                {this.state.people.map((person) => {
+                  const hashName = '#' + person.name
+                  return <div key={person.name}>
+                    <a href={hashName}>{person.name}</a>
+                  </div>}
                 )}
               </ul>
             </div>
