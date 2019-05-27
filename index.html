@@ -18,8 +18,7 @@
       constructor () {
         super()
         this.state = {
-          people: [],
-          hash: ''
+          people: []
         }
       }
 
@@ -43,7 +42,7 @@
             <div id='peopleList'>
               <ul>
                 {this.state.people.map((person) => {
-                  const hashName = '#' + person.name
+                  const hashName = '#' + this.state.people.indexOf(person)
                   return <div key={person.name}>
                     <a href={hashName}>{person.name}</a>
                   </div>}
