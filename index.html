@@ -13,6 +13,13 @@
   <script type='text/babel'>
     const root = document.querySelector('#root');
 
+    class DisplayNames extends React.Component {
+      render () {
+        console.log(this.state)
+        return
+      }
+    }
+
     class Main extends React.Component {
       constructor () {
         super()
@@ -28,12 +35,23 @@
         const swData = await response.json();
         const people = swData.results
         this.setState({ people })
+        window.addEventListener('hashchange', ()=> {
+          this.setState({ hash: this.hashChange() })
+        })
         }
         catch (err) {
           console.log('There is an error that shows: ', err)
         }
       }
 
+      hashChange(){
+        let current = 'home';
+        const hash = window.location.hash.slice(1);
+        if (hash){
+          current = hash;
+        }
+        return { current };
+      }
 
       render() {
         console.log(this.state)
@@ -42,11 +60,9 @@
             <h1>Star Wars People with React!</h1>
             <div id='peopleList'>
               <ul>
-                {this.state.people.map((person) => {
+                  {this.state.people.map((person) => {
                   const hashName = '#' + this.state.people.indexOf(person)
-                  return <div key={person.name} onClick={()=>{
-                    this.setState({ hash: window.location.hash.substring(1) })
-                  }}>
+                  return <div key={person.name} >
                     <a href={hashName} >{person.name}</a>
                   </div>}
                 )}
