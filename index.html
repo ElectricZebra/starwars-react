@@ -15,8 +15,14 @@
 
     class DisplayNames extends React.Component {
       render () {
-        console.log(this.state)
-        return
+        return<ul>
+                  {this.props.people.map((person) => {
+                  const hashName = '#' + this.props.people.indexOf(person)
+                  return <div key={person.name} >
+                    <a href={hashName} >{person.name}</a>
+                  </div>}
+                )}
+              </ul>
       }
     }
 
@@ -59,14 +65,7 @@
           <div id='container'>
             <h1>Star Wars People with React!</h1>
             <div id='peopleList'>
-              <ul>
-                  {this.state.people.map((person) => {
-                  const hashName = '#' + this.state.people.indexOf(person)
-                  return <div key={person.name} >
-                    <a href={hashName} >{person.name}</a>
-                  </div>}
-                )}
-              </ul>
+              <DisplayNames people={this.state.people} />
             </div>
           </div>
         );
