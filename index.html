@@ -15,14 +15,53 @@
 
     class DisplayNames extends React.Component {
       render () {
-        return<ul>
-                  {this.props.people.map((person) => {
-                  const hashName = '#' + this.props.people.indexOf(person)
-                  return <div key={person.name} >
-                    <a href={hashName} >{person.name}</a>
-                  </div>}
-                )}
-              </ul>
+        const hash = this.props.hash.current
+        const people = this.props.people
+        const personObj = people[hash]
+
+        console.log(personObj)
+        console.log(hash)
+        return<div>
+          <ul>
+            {people.map((person) => {
+              const hashName = '#' + people.indexOf(person)
+              return <div key={person.name} >
+                <a href={hashName} >{person.name}</a>
+              </div>}
+            )}
+          </ul>
+          <ul>
+            <li>name</li>
+              <p>{personObj.name}</p>
+              <li>height</li>
+              <p>{personObj.height}</p>
+            <li>mass</li>
+              <p>{personObj.mass}</p>
+            <li>hair_color</li>
+              <p>{personObj.hair_color}</p>
+              <li>skin_color</li>
+              <p>{personObj.skin_color}</p>
+            <li>eye_color</li>
+              <p>{personObj.eye_color}</p>
+            <li>birth_year</li>
+              <p>{personObj.birth_year}</p>
+            <li>gender</li>
+              <p>{personObj.gender}</p>
+            <li>homeworld</li>
+              <p>{personObj.homeworld}</p>
+            <li>films</li>
+              <p>{personObj.films}</p>
+            <li>species</li>
+              <p>{personObj.species}</p>
+            <li>vehicles</li>
+              <p>{personObj.vehicles}</p>
+            <li>starships</li>
+              <p>{personObj.starships}</p>
+            <li>url</li>
+              <p>{personObj.url}</p>
+
+          </ul>
+        </div>
       }
     }
 
@@ -30,8 +69,34 @@
       constructor () {
         super()
         this.state = {
-          people: [],
-          hash: ''
+          people: [{
+            name: "Luke Skywalker",
+            height: "172",
+            mass: "77",
+            hair_color: "blond",
+            skin_color: "fair",
+            eye_color: "blue",
+            birth_year: "19BBY",
+            gender: "male",
+            homeworld: "https://swapi.co/api/planets/1/",
+            films: [
+            "https://swapi.co/api/films/2/",
+            ],
+            species: [
+            "https://swapi.co/api/species/1/"
+            ],
+            vehicles: [
+            "https://swapi.co/api/vehicles/14/",
+            ],
+            starships: [
+            "https://swapi.co/api/starships/12/",
+            ],
+            created: "2014-12-09T13:50:51.644000Z",
+            edited: "2014-12-20T21:17:56.891000Z",
+            url: "https://swapi.co/api/people/1/"}],
+          hash: {
+            current: 0
+          }
         }
       }
 
@@ -60,12 +125,11 @@
       }
 
       render() {
-        console.log(this.state)
         return (
           <div id='container'>
             <h1>Star Wars People with React!</h1>
             <div id='peopleList'>
-              <DisplayNames people={this.state.people} />
+              <DisplayNames people={this.state.people} hash={this.state.hash}/>
             </div>
           </div>
         );
